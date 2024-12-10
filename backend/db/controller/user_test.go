@@ -52,9 +52,10 @@ func CreateTestUser(t *testing.T) User {
 	return user
 }
 
-// func TestCreateUser(t *testing.T) {
-// 	CreateTestUser(t)
-// }
+func TestCreateUser(t *testing.T) {
+	user := CreateTestUser(t)
+	testQueries.DeleteUser(context.Background(), user.ID)
+}
 
 func TestDeleteUser(t *testing.T) {
 	user := CreateTestUser(t)
@@ -77,5 +78,6 @@ func TestUpdateUser(t *testing.T) {
 	require.NotEqual(t, user.Name, user1.Name)
 	require.NotEqual(t, user.Email, user1.Email)
 	require.NotEqual(t, user.Password, user1.Password)
+	testQueries.DeleteUser(context.Background(), user.ID)
 
 }

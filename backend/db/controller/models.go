@@ -14,6 +14,7 @@ type Task struct {
 	UserID    int       `json:"user_id"`
 	Title     string    `json:"title"`
 	Descr     string    `json:"description"`
+	Category  string    `json:"category"`
 	Status    bool      `json:"status"`
 	CreatedAt time.Time `json:"created_at"`
 	UpdatedAt time.Time `json:"updated_at"`
