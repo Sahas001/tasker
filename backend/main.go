@@ -1,23 +1,30 @@
 package main
 
 import (
-	"flag"
+	"database/sql"
 	"log"
-	"net/http"
+
+	"github.com/Sahas001/some-project/api"
+	"github.com/Sahas001/some-project/db/controller"
+	"github.com/Sahas001/some-project/util"
+	_ "github.com/lib/pq"
 )
 
-type Handler struct{}
-
-func (h *Handler) HelloHandler(w http.ResponseWriter, r *http.Request) {
-	w.Write([]byte("Hello, World"))
-}
-
 func main() {
-	ports := flag.String("ports", ":8080", "Ports to run server to")
-	flag.Parse()
-	h := &Handler{}
-	http.HandleFunc("/", h.HelloHandler)
-	if err := http.ListenAndServe(*ports, nil); err != nil {
-		log.Fatal(err)
+	config, err := util.LoadConfig(".")
+	if err != nil {
+		log.Fatal("cannot load config:", err)
+	}
+
+	conn, err := sql.Open(config.DBDriver, config.DBSource)
+	if err != nil {
+		log.Fatal("cannot connect to db:", err)
+	}
+	store := controller.NewStore(conn)
+	server := api.NewServer(store)
+	err = server.Start(config.ServerAddress)
+	if err != nil {
+		log.Fatal("cannot start server:", err)
 	}
 }
+

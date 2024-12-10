@@ -44,6 +44,13 @@ func (q *Queries) DeleteTask(ctx context.Context, id int) error {
 	return err
 }
 
+const deleteTasksByUserID = `DELETE FROM tasks WHERE user_id=$1`
+
+func (q *Queries) DeleteTasksByUserID(ctx context.Context, userID int) error {
+	_, err := q.db.ExecContext(ctx, deleteTasksByUserID, userID)
+	return err
+}
+
 type UpdateTaskParams struct {
 	Title       string `json:"title"`
 	Description string `json:"description"`

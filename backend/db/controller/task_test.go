@@ -80,3 +80,14 @@ func TestUpdateTask(t *testing.T) {
 	require.NotZero(t, updatedTask.UpdatedAt)
 	testQueries.DeleteTask(context.Background(), taskID)
 }
+
+func TestDeleteTasksByUserID(t *testing.T) {
+	_, id := CreateTask(t)
+	err := testQueries.DeleteTasksByUserID(context.Background(), id)
+	require.NoError(t, err)
+
+	tasks, err := testQueries.GetTasksByUserID(context.Background(), id)
+	require.NoError(t, err)
+	require.Empty(t, tasks)
+	// testQueries.DeleteTask(context.Background(), task.ID)
+}
