@@ -51,3 +51,5 @@ func errorResponse(err error) gin.H {
 func okResponse(data interface{}) gin.H {
 	return gin.H{"data": data}
 }
+
+// func
