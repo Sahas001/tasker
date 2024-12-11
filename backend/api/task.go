@@ -106,3 +106,17 @@ func (s *Server) DeleteTasksByUserID(ctx *gin.Context) {
 	}
 	ctx.JSON(http.StatusOK, okResponse("tasks deleted"))
 }
+
+// func (s *Server) GetTasksByID(ctx *gin.Context) {
+// 	taskID, err := strconv.Atoi(ctx.Param("id"))
+// 	if err != nil {
+// 		ctx.JSON(http.StatusBadRequest, errorResponse(err))
+// 		return
+// 	}
+// 	task, err := s.store.GetTaskByID(ctx, taskID)
+// 	if err != nil {
+// 		ctx.JSON(http.StatusInternalServerError, errorResponse(err))
+// 		return
+// 	}
+// 	ctx.JSON(http.StatusOK, task)
+// }
