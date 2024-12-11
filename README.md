@@ -1,3 +1,4 @@
 # Tasker
 
-[[https://excalidraw.com/#json=7WfSIQwLeJLOJTqibaCeN,b5VhC-vG6Pm3zoU60rka5Q]]
+
+![image](https://github.com/user-attachments/assets/34c2ef96-934e-448b-9ea3-718f95e72453)
