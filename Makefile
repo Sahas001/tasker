@@ -1,4 +1,7 @@
 server:
 	cd backend && go run .
 
-.PHONY: server
+client:
+	cd frontend && npm run dev
+
+.PHONY: server client
