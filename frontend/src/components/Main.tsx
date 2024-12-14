@@ -4,6 +4,8 @@ import TaskHolder from "../components/TaskHolder"
 import TaskInput from "../components/TaskInput"
 import { TaskInputProps } from "../types/type"
 import { TaskProps } from "./TaskCard"
+import Tabs from "./Tabs"
+import { useTasks, useTasksWithUserID } from "../hooks/useTasks"
 
 function Main() {
   const [tasks, setTasks] = useState<TaskProps[]>([
@@ -30,15 +32,25 @@ function Main() {
     }
 
   ])
+  const [tabs, setTabs] = useState('create')
+
+  const { data, loading, error } = useTasks({ id: 35 })
+
+
 
   const addTask = (task: TaskInputProps) => {
     setTasks([...tasks, task])
   }
 
   return (
-    <div className="flex flex-col justify-center items-center p-5 ">
-      <TaskInput addTask={addTask} />
-      <TaskHolder tasks={tasks} />
+    <div className="flex flex-col justify-center items-center min-h-screen p-6">
+      <Tabs activeTab={tabs} setActiveTab={setTabs} />
+      {
+        tabs === 'create' && <TaskInput addTask={addTask} />
+      }
+      {
+        tabs === 'view' && <TaskHolder tasks={data} />
+      }
     </div>
   )
 }
