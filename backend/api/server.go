@@ -2,6 +2,7 @@ package api
 
 import (
 	"github.com/Sahas001/some-project/db/controller"
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 )
 
@@ -15,6 +16,15 @@ func NewServer(store *controller.Store) *Server {
 		store:  store,
 		router: gin.Default(),
 	}
+
+	// Configure and add the CORS middleware
+	server.router.Use(cors.New(cors.Config{
+		AllowOrigins:     []string{"http://localhost:5173"}, // Replace with your React app's URL
+		AllowMethods:     []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
+		AllowHeaders:     []string{"Content-Type", "Authorization"},
+		ExposeHeaders:    []string{"Content-Length"},
+		AllowCredentials: true,
+	}))
 
 	server.setupRoutes()
 	return server
