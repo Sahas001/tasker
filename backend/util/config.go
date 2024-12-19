@@ -6,6 +6,7 @@ type Config struct {
 	DBDriver      string `mapstructure:"DB_DRIVER"`
 	DBSource      string `mapstructure:"DB_SOURCE"`
 	ServerAddress string `mapstructure:"SERVER_ADDRESS"`
+	JWTKey        string `mapstructure:"JWT_KEY"`
 }
 
 func LoadConfig(path string) (config Config, err error) {

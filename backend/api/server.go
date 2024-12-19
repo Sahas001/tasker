@@ -2,6 +2,7 @@ package api
 
 import (
 	"github.com/Sahas001/some-project/db/controller"
+	"github.com/Sahas001/some-project/middleware"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 )
@@ -33,7 +34,7 @@ func NewServer(store *controller.Store) *Server {
 
 func (s *Server) setupRoutes() {
 	// user crud operations
-	s.router.POST("/user", s.CreateUser)
+	s.router.POST("/signup", s.CreateUser)
 	s.router.GET("/user/:id", s.GetUser)
 	s.router.PUT("/user/:id", s.UpdateUser)
 	s.router.DELETE("/user/:id", s.DeleteUser)
@@ -44,6 +45,10 @@ func (s *Server) setupRoutes() {
 	s.router.DELETE("/tasks/:id", s.DeleteTask)
 	s.router.PUT("/tasks/:id", s.UpdateTask)
 	s.router.DELETE("/tasks/user/:id", s.DeleteTasksByUserID)
+
+	//user login
+	s.router.POST("/login", s.Login)
+	s.router.GET("/validate", middleware.RequireAuth(s.store), s.Validate)
 
 	//TODO: add routes to delete tasks with tasks id
 
